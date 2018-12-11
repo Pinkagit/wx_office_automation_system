@@ -63,7 +63,7 @@
     <script>
         $(function() {
             
-            $("#btn").on('click', function() {
+            /* $("#btn").on('click', function() {
                 $.ajax({
                     url: '/getauthorizeurl',
                     type: "GET",
@@ -76,9 +76,9 @@
                         $("#tp").text(data)
                     }
                 })
-            })
+            }) */
             
-            /* $.ajax({
+            $.ajax({
                 url: '/getuserinfo',
                 type: 'get',
                 error: function(err) {
@@ -93,7 +93,7 @@
                     $("#gender").text(data.ret.gender);
                     $("#avatarImg").attr("src", data.ret.avatar);
                 }
-            }) */
+            })
         })
     </script>
 </body>

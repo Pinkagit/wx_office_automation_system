@@ -59,7 +59,7 @@ Router.get('/getauthorizeurl', async(ctx, next) => {
 
 Router.get('/getuserinfo', async(ctx, next) => {
 
-    let userInfo = {};
+    /* let userInfo = {};
 
     try {
         let code = ctx.query.code;
@@ -82,7 +82,12 @@ Router.get('/getuserinfo', async(ctx, next) => {
 
     ctx.response.body = {
         ret: userInfo
+    } */
+
+    ctx.response.body = {
+        ret: '1111111111112222222'
     }
+    
 })
 
 // 监听端口
