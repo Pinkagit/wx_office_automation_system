@@ -73,6 +73,7 @@
                     // console.log(data);
                     alert(JSON.stringify(data))
 
+                    $("#avatarImg").attr('src', data.ret.avatar)
                     $('#name').text(data.ret.name);
                     $("#userid").text(data.ret.userid);
                     $("#position").text(data.ret.position);
