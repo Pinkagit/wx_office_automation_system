@@ -29,21 +29,9 @@ app.use(static(
 ))
 app.use(Router.routes(), Router.allowedMethods())
 
-Router.post('/test', async(ctx, next) => {
-
-    let name = ctx.request.body.name;
-
-    console.log("==", name)
-
-    ctx.response.body = {
-        ret: name
-    }
-    
-})
-
 Router.get('/getauthorizeurl', async(ctx, next) => {
     
-    /* // 网页授权登入
+    // 网页授权登入
     let params = {
         appid: global.config.wxConf.corpid,
         redirect_uri: encodeURIComponent(`${global.config.wxConf.redirect_uri}/getuserinfo`),
@@ -57,9 +45,11 @@ Router.get('/getauthorizeurl', async(ctx, next) => {
 
     console.log("authorizeurl==> ", authorizeurl)
     
-    ctx.redirect(authorizeurl);     // 重定向到微信服务器 */
-    
-    ctx.response.body = 'Hello World';
+    // ctx.redirect(authorizeurl);     // 重定向到微信服务器
+
+    ctx.response.body = {
+        ret: authorizeurl
+    }
     
 })
 
