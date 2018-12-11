@@ -31,7 +31,7 @@ app.use(Router.routes(), Router.allowedMethods())
 
 Router.get('/getauthorizeurl', async(ctx, next) => {
     
-    // 网页授权登入
+    /* // 网页授权登入
     let params = {
         appid: global.config.wxConf.corpid,
         redirect_uri: encodeURIComponent(`${global.config.wxConf.redirect_uri}/getuserinfo`),
@@ -49,6 +49,10 @@ Router.get('/getauthorizeurl', async(ctx, next) => {
 
     ctx.response.body = {
         ret: authorizeurl
+    } */
+
+    ctx.response.body = {
+        ret: '11111111111111111111111111'
     }
     
 })
