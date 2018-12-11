@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+        }
+        .container  {
+            margin: 0 auto;
+            width: 100vw;
+            max-width: 600px;
+        }
+        .container>p {
+            width: 100%;
+            background: lightslategray;
+            color: #fff;
+            font-size: 18px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .avatar {
+            width: 200px;
+            height: 200px;
+            border: 1px solid lightblue;
+            margin: 20px auto;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        .avatar>img {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="avatar">
+            <img src="" alt="" id="avatarImg">
+        </div>
+        <p>
+            姓名：<span id="name"></span>
+        </p>
+        <p>
+            ID: <span id="userid"></span>
+        </p>
+        <p>
+            职位： <span id="position"></span>
+        </p>
+        <p>
+            性别： <span id="gender"></span>
+        </p>
+
+    </div>
+    
+    <script src="./jquery-1.11.0.min.js"></script>
+    <script>
+        $(function() {
+            
+            /* $.ajax({
+                url: '/getuserinfo',
+                type: 'get',
+                error: function(err) {
+                    console.log(err)
+                },
+                success: function(data) {
+                    console.log("data =>", JSON.stringify(data))
+
+                    $("#name").text(data.ret.name);
+                    $("#userid").text(data.ret.userid);
+                    $("#position").text(data.ret.position);
+                    $("#gender").text(data.ret.gender);
+                    $("#avatarImg").attr("src", data.ret.avatar);
+                }
+            }) */
+        })
+    </script>
+</body>
+</html>
