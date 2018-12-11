@@ -54,11 +54,26 @@
             性别： <span id="gender"></span>
         </p>
 
+        <button id="btn">btn</button>
+
     </div>
     
     <script src="./jquery-1.11.0.min.js"></script>
     <script>
         $(function() {
+            
+            $("#btn").on('click', function() {
+                $.ajax({
+                    url: '/getauthorizeurl',
+                    type: "GET",
+                    error: function(err) {
+                        console.log(err)
+                    },
+                    success: function(data) {
+                        console.log(data)
+                    }
+                })
+            })
             
             /* $.ajax({
                 url: '/getuserinfo',

@@ -45,7 +45,11 @@ Router.get('/getauthorizeurl', async(ctx, next) => {
 
     console.log("authorizeurl==> ", authorizeurl)
     
-    ctx.redirect(authorizeurl);     // 重定向到微信服务器
+    // ctx.redirect(authorizeurl);     // 重定向到微信服务器
+
+    ctx.response.body = {
+        ret: authorizeurl
+    }
     
 })
 
