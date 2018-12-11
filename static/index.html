@@ -72,6 +72,11 @@
                 success: function(data) {
                     // console.log(data);
                     alert(JSON.stringify(data))
+
+                    $('#name').text(data.ret.name);
+                    $("#userid").text(data.ret.userid);
+                    $("#position").text(data.ret.position);
+                    $("#gender").text(data.ret.gender)
                 }
             })
             
