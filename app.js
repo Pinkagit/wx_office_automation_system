@@ -45,21 +45,15 @@ Router.get('/getauthorizeurl', async(ctx, next) => {
 
     console.log("authorizeurl==> ", authorizeurl)
     
-    // ctx.redirect(authorizeurl);     // 重定向到微信服务器
-
-    ctx.response.body = {
-        ret: authorizeurl
-    } */
-
-    ctx.response.body = {
-        ret: '11111111111111111111111111'
-    }
+    ctx.redirect(authorizeurl);     // 重定向到微信服务器 */
+    
+    ctx.response.body = 'Hello World';
     
 })
 
 Router.get('/getuserinfo', async(ctx, next) => {
 
-    /* let userInfo = {};
+    let userInfo = {};
 
     try {
         let code = ctx.query.code;
@@ -82,12 +76,7 @@ Router.get('/getuserinfo', async(ctx, next) => {
 
     ctx.response.body = {
         ret: userInfo
-    } */
-
-    ctx.response.body = {
-        ret: '1111111111112222222'
     }
-    
 })
 
 // 监听端口

@@ -63,22 +63,20 @@
     <script>
         $(function() {
             
-            /* $("#btn").on('click', function() {
+            $("#btn").on('click', function() {
                 $.ajax({
                     url: '/getauthorizeurl',
                     type: "GET",
                     error: function(err) {
                         console.log(err)
-                        $("#ep").text(err)
                     },
                     success: function(data) {
                         console.log(data)
-                        $("#tp").text(data)
                     }
                 })
-            }) */
+            })
             
-            $.ajax({
+            /* $.ajax({
                 url: '/getuserinfo',
                 type: 'get',
                 error: function(err) {
@@ -93,7 +91,7 @@
                     $("#gender").text(data.ret.gender);
                     $("#avatarImg").attr("src", data.ret.avatar);
                 }
-            })
+            }) */
         })
     </script>
 </body>
