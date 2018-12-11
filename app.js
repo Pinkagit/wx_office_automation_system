@@ -34,7 +34,7 @@ Router.get('/getauthorizeurl', async(ctx, next) => {
     // 网页授权登入
     let params = {
         appid: global.config.wxConf.corpid,
-        redirect_uri: encodeURIComponent(`${global.config.wxConf.redirect_uri}/getuserinfo`),
+        redirect_uri: encodeURIComponent(`${global.config.wxConf.redirect_uri}`),
         response_type: 'code',
         scope: 'snsapi_base',
     }
