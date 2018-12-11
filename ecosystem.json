@@ -14,7 +14,7 @@
     "deploy":{
         "production":{
             "user":"root",      
-            "host":["10.155.0.75:22"], 
+            "host":["10.155.0.75"], 
             "port":"22",          
             "ref":"origin/master",
             "repo":"git@github.com:Pinkagit/wx_office_automation_system.git", 
