@@ -39,8 +39,6 @@ Router.get('/getauthorizeurl', async(ctx, next) => {
         scope: 'snsapi_base',
     }
 
-    console.log("params=>", params)
-
     let authorizeurl = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${params.appid}&redirect_uri=${params.redirect_uri}&response_type=${params.response_type}&scope=${params.scope}#wechat_redirect`;
 
     console.log("authorizeurl==> ", authorizeurl)
