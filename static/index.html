@@ -57,6 +57,8 @@
         <button id="btn">btn</button>
         <p id="tp">pp</p>
         <p id="ep">ep</p>
+
+        <button id="bb">bbb</button>
     </div>
     
     <script src="./jquery-1.11.0.min.js"></script>
@@ -72,6 +74,23 @@
                     },
                     success: function(data) {
                         console.log(data)
+                    }
+                })
+            })
+
+            $("#bb").on('click', function() {
+                $.ajax({
+                    url: '/test',
+                    type: "post",
+                    data: {
+                        name: 'wuquan'
+                    },
+                    error: function(err) {
+                        console.log(err)
+                    },
+                    success: function(data) {
+                        console.log(data)
+                        $("#ep").text(data.ret)
                     }
                 })
             })

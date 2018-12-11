@@ -29,6 +29,18 @@ app.use(static(
 ))
 app.use(Router.routes(), Router.allowedMethods())
 
+Router.post('/test', async(ctx, next) => {
+
+    let name = ctx.request.body.name;
+
+    console.log("==", name)
+
+    ctx.response.body = {
+        ret: name
+    }
+    
+})
+
 Router.get('/getauthorizeurl', async(ctx, next) => {
     
     /* // 网页授权登入
