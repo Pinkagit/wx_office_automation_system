@@ -55,7 +55,8 @@
         </p>
 
         <button id="btn">btn</button>
-        <p id="tp"></p>
+        <p id="tp">pp</p>
+        <p id="ep">ep</p>
     </div>
     
     <script src="./jquery-1.11.0.min.js"></script>
@@ -68,6 +69,7 @@
                     type: "GET",
                     error: function(err) {
                         console.log(err)
+                        $("#ep").text(err)
                     },
                     success: function(data) {
                         console.log(data)
