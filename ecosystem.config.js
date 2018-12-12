@@ -5,6 +5,9 @@ module.exports = {
       name      : 'wx_oa',
       // 这里是项目的启动文件，不过自己没用上
       script    : './app.js',
+      autorestart: true,    //自动启动：是
+      watch: false,         //监视模式：否
+      max_memory_restart: '1G',//如果超过内存多少后，将重启实例：1G
       env: {
         COMMON_VARIABLE: 'true'
       },
