@@ -71,7 +71,7 @@ Router.get('/getuserinfo', async(ctx, next) => {
     }
 
     ctx.response.body = {
-        ret: userInfo
+        data: userInfo,
     }
 })
 
