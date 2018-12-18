@@ -75,6 +75,12 @@ Router.get('/getuserinfo', async(ctx, next) => {
     }
 })
 
+Router.get('/test', async(ctx, next) => {
+    ctx.response.body = {
+        ret: 'msg'
+    }
+})
+
 // 监听端口
 app.listen( global.config.port, () => {
     console.log(`Server listening on port ${global.config.port}.`);
