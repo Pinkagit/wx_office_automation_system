@@ -71,8 +71,8 @@
                 },
                 success: function(data) {
                     // console.log(data);
-                    // alert(JSON.stringify(data))
-                    alert("ok~!")
+                    alert(JSON.stringify(data))
+                    // alert("ok~!")
 
                     $("#avatarImg").attr('src', data.ret.avatar)
                     $('#name').text(data.ret.name);
