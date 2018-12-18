@@ -5,7 +5,8 @@
   "author": "wuquan",
   "license": "MIT",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "update": "pm2 deploy dev update"
   },
   "dependencies": {
     "axios": "^0.18.0",
