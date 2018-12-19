@@ -31,20 +31,32 @@ app.use(Router.routes(), Router.allowedMethods())
 
 Router.get('/getauthorizeurl', async(ctx, next) => {
     
-    // 网页授权登入
-    let params = {
-        appid: global.config.wxConf.corpid,
-        redirect_uri: encodeURIComponent(`${global.config.wxConf.redirect_uri}`),
-        response_type: 'code',
-        scope: 'snsapi_base',
+    // 判断请求设备否企业微信
+    const isWXwork = ctx.headers["user-agent"].toLowerCase().match(/wxwork/);
+    if(isWXwork) {
+        // 网页授权登入
+        let params = {
+            appid: global.config.wxConf.corpid,
+            redirect_uri: encodeURIComponent(`${global.config.wxConf.redirect_uri}`),
+            response_type: 'code',
+            scope: 'snsapi_base',
+        }
+
+        let authorizeurl = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${params.appid}&redirect_uri=${params.redirect_uri}&response_type=${params.response_type}&scope=${params.scope}#wechat_redirect`;
+        
+        ctx.redirect(authorizeurl);     // 重定向到微信服务器
+    } else {
+        // 扫码授权登入
+        let params = {
+            appid: global.config.wxConf.corpid,
+            redirect_uri: encodeURIComponent(`${global.config.wxConf.redirect_uri}`),
+            agentid: global.config.wxConf.agentid
+        }
+
+        let authorizeurl = `https://open.work.weixin.qq.com/wwopen/sso/qrConnect?appid=${params.appid}&agentid=${params.agentid}&redirect_uri=${params.redirect_uri}`;
+
+        ctx.redirect(authorizeurl);     // 重定向到微信服务器
     }
-
-    let authorizeurl = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${params.appid}&redirect_uri=${params.redirect_uri}&response_type=${params.response_type}&scope=${params.scope}#wechat_redirect`;
-
-    console.log("authorizeurl==> ", authorizeurl)
-    
-    ctx.redirect(authorizeurl);     // 重定向到微信服务器
-
 })
 
 Router.get('/getuserinfo', async(ctx, next) => {
