@@ -26,6 +26,13 @@ const createToken = (userid) => {
 
 // 检验token
 const checkToken = async(ctx, next) => {
+
+    console.log("code ==>", ctx.query.code)
+    if(ctx.query.code) {
+        await next();
+        console.log("Test ===> code")
+    }
+
     // 从header中取token
     const authorization = ctx.get('Authorization');
     
