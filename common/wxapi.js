@@ -1,6 +1,7 @@
 const myCache = require('./cache');
 const axios = require('axios');
 const wxConf = global.config.wxConf;
+const tokenController = require('./token')
 
 
 // 获取 access_token
@@ -9,7 +10,7 @@ const getAccessToken = async(ctx) => {
         myCache.get('accessToken', (err, value) => {
             if(!err) {
                 if(value == undefined) {
-                    // token无或失效, 重新请求access_token
+                    // access_token无或失效, 重新请求access_token
                     axios.get('https://qyapi.weixin.qq.com/cgi-bin/gettoken', {
                         params: {
                             corpid: wxConf.corpid,
@@ -50,7 +51,6 @@ const getUserId = async(code) => {
         access_token: await getAccessToken(),
         code: code
     }
-    console.log("getUserId ==> params: ", params)
 
     return new Promise((resolve, reject) => {
         axios.get("https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo", {
@@ -74,6 +74,9 @@ const getUserInfo = async(userid) => {
         axios.get("https://qyapi.weixin.qq.com/cgi-bin/user/get", {
             params
         }).then(v => {
+            // 返回tokens
+            let tokens =  tokenController.createToken(userid);
+            v.data.tokens = tokens;
             resolve(v.data)
         }).catch(e => {
             reject(e)

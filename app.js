@@ -4,11 +4,10 @@ const body = require('koa-body');
 const static = require('koa-static');
 const path = require('path');
 const log = require('./log');
-const axios = require('axios');
 // 引入配置文件
 global.config = require('./config/config');
-const myCache = require('./common/cache');
-const wxapi = require('./common/wxapi');
+// router
+const index = require('./routes/index');
 
 const app = new Koa();
 
@@ -29,69 +28,8 @@ app.use(static(
 ))
 app.use(Router.routes(), Router.allowedMethods())
 
-Router.get('/getauthorizeurl', async(ctx, next) => {
-    
-    // 判断请求设备否企业微信
-    const isWXwork = ctx.headers["user-agent"].toLowerCase().match(/wxwork/);
-    if(isWXwork) {
-        // 网页授权登入
-        let params = {
-            appid: global.config.wxConf.corpid,
-            redirect_uri: encodeURIComponent(`${global.config.wxConf.redirect_uri}`),
-            response_type: 'code',
-            scope: 'snsapi_base',
-        }
-
-        let authorizeurl = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${params.appid}&redirect_uri=${params.redirect_uri}&response_type=${params.response_type}&scope=${params.scope}#wechat_redirect`;
-        
-        ctx.redirect(authorizeurl);     // 重定向到微信服务器
-    } else {
-        // 扫码授权登入
-        let params = {
-            appid: global.config.wxConf.corpid,
-            redirect_uri: encodeURIComponent(`${global.config.wxConf.redirect_uri}`),
-            agentid: global.config.wxConf.agentid
-        }
-
-        let authorizeurl = `https://open.work.weixin.qq.com/wwopen/sso/qrConnect?appid=${params.appid}&agentid=${params.agentid}&redirect_uri=${params.redirect_uri}`;
-
-        ctx.redirect(authorizeurl);     // 重定向到微信服务器
-    }
-})
-
-Router.get('/getuserinfo', async(ctx, next) => {
-
-    let userInfo = {};
-
-    try {
-        let code = ctx.query.code;
-        let userInfo_byCode = await wxapi.getUserId(code);
-
-        console.log("code ==> ", code);
-        console.log("userInfo_byCode ==> ", userInfo_byCode);
-        
-        if(!userInfo_byCode.UserId) {
-            // 非企业成员
-            console.log("Non-corporate member");
-        } else {
-            // 企业成员
-            let UserId = userInfo_byCode.UserId;
-            userInfo = await wxapi.getUserInfo(UserId);
-        }
-    } catch (error) {
-        console.log(error);
-    }
-
-    ctx.response.body = {
-        data: userInfo,
-    }
-})
-
-Router.get('/test', async(ctx, next) => {
-    ctx.response.body = {
-        ret: 'msg'
-    }
-})
+// 引入子路由
+Router.use('/', index.routes(), index.allowedMethods())
 
 // 监听端口
 app.listen( global.config.port, () => {
