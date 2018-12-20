@@ -40,44 +40,38 @@ router.get('getauthorizeurl', async(ctx, next) => {
     }
 })
 
-router.get('getuserinfo', tokenController.checkToken, async(ctx, next) => {
+router.get('getuserinfo', async(ctx, next) => {
 
     let data, msg, code;
     
-    if(ctx.state.userid) {      // 判断是否有缓存userid
-        await wxapi.getUserInfo(ctx.state.userid).then(v => {
-            data = v;
+    try {
+        let code = ctx.query.code;
+        let userInfo_byCode = await wxapi.getUserId(code);
+
+        if(!userInfo_byCode.UserId) {
+            // 非企业成员
+            code = 0;
+            throw new Error("Non-corporate member")
+        } else {
+            // 企业成员
+            let UserId = userInfo_byCode.UserId;
+            data = await wxapi.getUserInfo(UserId);
             code = 1;
-        }).catch(e => {
-            code = 0;
-            msg = e;
-        })
-    } else if(ctx.query.code) { //判断是否重新登入请求
-        try {
-            let code = ctx.query.code;
-            let userInfo_byCode = await wxapi.getUserId(code);
-    
-            if(!userInfo_byCode.UserId) {
-                // 非企业成员
-                code = 0;
-                throw new Error("Non-corporate member")
-            } else {
-                // 企业成员
-                let UserId = userInfo_byCode.UserId;
-                data = await wxapi.getUserInfo(UserId);
-                code = 1;
-            }
-        } catch (error) {
-            code = 0;
-            msg = error;
         }
-    } 
+    } catch (error) {
+        code = 0;
+        msg = error;
+    }
     
     ctx.response.body = {
         data,
         msg,
         code,
     }
+})
+
+router.get('verifytoken', tokenController.checkToken, async(ctx, next) => {
+
 })
 
 router.get('test', async(ctx, next) => {
