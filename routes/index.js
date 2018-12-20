@@ -44,6 +44,8 @@ router.get('getuserinfo', tokenController.checkToken, async(ctx, next) => {
 
     let data, msg, code;
     
+    console.log("!================!", ctx.query.code)
+    
     if(ctx.state.userid) {      // 判断是否有缓存userid
         await wxapi.getUserInfo(ctx.state.userid).then(v => {
             data = v;
