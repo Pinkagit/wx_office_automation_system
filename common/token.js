@@ -30,31 +30,31 @@ const checkToken = async(ctx, next) => {
     console.log("code ==>", ctx.query.code)
     if(ctx.query.code) {
         await next();
-        console.log("Test ===> code")
-    }
+    } else {
+        // 从header中取token
+        const authorization = ctx.get('Authorization');
+            
+        if (authorization === '') {
+            ctx.throw(401, 'no token detected in http header Authorization')
+        }
+        const access_token = authorization.split(' ')[1];
+        const refresh_token = authorization.split(' ')[3];
 
-    // 从header中取token
-    const authorization = ctx.get('Authorization');
+        await verifyToken(refresh_token).catch(e => {
+            console.log("eeeeeeee", e)
+            ctx.throw(401, e);
+        })
+
+        await verifyToken(access_token).then(v => {
+            console.log("vvvvvvvvvvv ", v)
+            ctx.state.userid = v;
+        }).catch(e => {
+            console.log("eeeeeeee", e)
+            ctx.throw(401, e);
+        })
+        await next();
+    }
     
-    if (authorization === '') {
-        ctx.throw(401, 'no token detected in http header Authorization')
-    }
-    const access_token = authorization.split(' ')[1];
-    const refresh_token = authorization.split(' ')[3];
-
-    await verifyToken(refresh_token).catch(e => {
-        console.log("eeeeeeee", e)
-        ctx.throw(401, e);
-    })
-
-    await verifyToken(access_token).then(v => {
-        console.log("vvvvvvvvvvv ", v)
-        ctx.state.userid = v;
-    }).catch(e => {
-        console.log("eeeeeeee", e)
-        ctx.throw(401, e);
-    })
-    await next();
 }
 
 const verifyToken = (token) => {
